@@ -15,10 +15,29 @@ const createTodo = async (user_id: string, title: string) => {
 
 const getTodo = async () => {
   const result = await pool.query(`SELECT * FROM todos`);
-  return result
+  return result;
+};
+
+// get single todo
+
+const getSingleTodo = async (id: string) => {
+  const result = await pool.query("SELECT * FROM todos WHERE id = $1", [id]);
+  return result;
+};
+
+// delete todo
+
+const deleteTodo = async (id: string) => {
+  const result = await pool.query("DELETE FROM todos WHERE id=$1 RETURNING *", [
+    id,
+  ]);
+
+  return result;
 };
 
 export const todosService = {
   createTodo,
-  getTodo
+  getTodo,
+  getSingleTodo,
+  deleteTodo
 };
