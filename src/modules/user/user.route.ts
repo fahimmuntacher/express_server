@@ -9,21 +9,12 @@ router.post("/", userControllers.createUser)
 
 
 // get request
-router.get("/", async (req: Request, res: Response) => {
-  try {
-    const result = await pool.query(`SELECT * FROM users`);
-    res.status(200).json({
-      success: true,
-      message: "users retrived successfully",
-      data: result.rows,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message,
-      details: err,
-    });
-  }
-})
+router.get("/", userControllers.getUser)
+
+// get single User
+router.get("/:id", userControllers.getSingleUser)
+
+// single user update
+router.put("/:id", userControllers.updateUser)
 
 export const userRoutes = router;
