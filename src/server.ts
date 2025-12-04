@@ -6,6 +6,7 @@ import initDb, { pool } from "./config/db";
 import logger from "./middleware/logger";
 import { userRoutes } from "./modules/user/user.route";
 import { todosRoute } from "./modules/todo/todos.route";
+import { authRoute } from "./modules/auth/auth.route";
 
 const app = express();
 const port = config.port
@@ -29,6 +30,12 @@ app.get("/", (req: Request, res: Response) => {
 // users CRUD
 app.use("/users", userRoutes)
 
+
+// todo crud
+app.use("/todos", todosRoute)
+
+// auth 
+app.use("/auth", authRoute)
 
 // app.post("/users", async (req: Request, res: Response) => {
 //   const { name, email } = req.body;
@@ -159,7 +166,7 @@ app.use("/users", userRoutes)
 // });
 
 // todos crud
-app.use("/todos", todosRoute)
+
 
 // todos post
 // app.post("/todos", async (req: Request, res: Response) => {
